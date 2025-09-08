@@ -1,9 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Report an Issue";
 }
 
-<div class="text-center mt-5">
-    <h1 class="display-4">Welcome to South Afica's Municipal Services</h1>
+<div class="p-4 container">
+    <h1 class="display-4 text-center">Report an Issue</h1>
+    <p class="lead text-center">Use the button below to report any municipal issues you encounter.</p>
+    <div class="d-flex justify-content-center">
+        <a asp-controller="ReportIssues" asp-action="Create" class="btn btn-primary custom-button">Report Issue</a>
+    </div>
 </div>
 
 <style>
@@ -12,7 +16,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        min-height: 100vh;
+        height: 100vh;
         margin: 0;
         font-family: Arial, sans-serif;
     }
@@ -26,13 +30,13 @@
 </style>
 
 <div class="container">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg" alt="SA Flag" class="flag"/>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg" alt="SA Flag" class="flag" />
     <style>
         .flag {
             position: absolute;
             top: 70px;
             right: 10px;
-            width: 100px; 
+            width: 100px;
             height: auto;
         }
     </style>

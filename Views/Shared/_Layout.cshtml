@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/PROG_3B_ST10255309.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+   <!-- <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">South African Municipality</a>
@@ -29,11 +29,53 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+     </header>-->
+     <div class="container-fluid">
+         <div class="row flex-nowrap">
+             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+                    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-black min-vh-100">
+                        <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-black text-decoration-none">
+                            <span class="fs-5 d-none d-sm-inline">South African Municipality</span>    
+                        </a> 
+                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="sidebmenu">
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="Index" class="nav-link align-middle px-0 text-black">
+                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                                </a> 
+                            </li>
+                            <li>
+                                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-black-50">
+                                    <i class="fs-4 bg-info bi-people-fill"></i> <span class="ms-1 d-none d-sm-inline">Municipal Services</span>
+                                </a>
+                                <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#sidebmenu">
+                                        <li class="w-100">
+                                            <a asp-controller="ReportIssues" asp-action="Reports" class="nav-link px-0 text-black"> <span class="d-none d-sm-inline">Report Issue</span></a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="LocalEvents" asp-action="Events" class="nav-link px-0 text-black"> <span class="d-none d-sm-inline">Local Events</span></a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Status" asp-action="Request" class="nav-link px-0 text-black"> <span class="d-none d-sm-inline">Service Request Status</span></a>
+                                        </li>
+                                </ul>
+                            </li>
+                         </ul> 
+                    </div>
+             </div>
+            <div class="col py-3">
+                @RenderBody()
+            </div>
+         </div> 
+     </div>
+
+    <div class="containter-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white">
+                <div class="col py-3">
+                    @RenderBody()
+                </div>
+            </div>   
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
@@ -47,3 +89,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<!-- Just Pick and Learn (2023). Part-5: Adding side navigation bar | Employee records management | Asp.net core MVC 7.0 project. [online] YouTube. Available at: https://www.youtube.com/watch?v=7HmnCTyLqLE [Accessed 7 Sep. 2025].-->
