@@ -8,5 +8,11 @@ namespace PROG_3B_ST10255309.Controllers
         {
             return View();
         }
+        public IActionResult Events()
+        {
+            {
+                return View();
+            }
+        }
     }
 }

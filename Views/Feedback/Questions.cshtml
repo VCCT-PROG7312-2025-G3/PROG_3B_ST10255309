@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Provide your Feedback";
+}
+
+<div class="p-4 container">
+    <h1 class="display-4 text-center">Provide your Feedback</h1>
+    <p class="lead text-center">We are looking for alternative solutions to make our platform better for you. If you have any concerns or requests, your feedback is always valued.</p>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form asp-action="SubmitFeedback" method="post" class="container mt-4">
+    <div class="form-group">
+        <label for="feedbackType">Select Feedback Type:</label>
+        <select class="form-control" id="feedbackType" name="feedbackType" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="Complaint">Complaint</option>
+            <option value="Suggestion">Suggestion</option>
+            <option value="Inquiry">Inquiry</option>
+        </select>
+
+        <label for="message" class="mt-3">Your Message:</label>
+        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+        <button type="submit" class="btn btn-primary custom-button">Submit Feedback</button>
+
+    </div>
+</form>
+
+<style>
+    body {
+        background-image: url('https://e1.pxfuel.com/desktop-wallpaper/8/898/desktop-wallpaper-light-colour-plain-backgrounds-light-grey-plain.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .custom-button {
+        width: 200px;
+        height: 50px;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg" alt="SA Flag" class="flag" />
+    <style>
+        .flag {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</div>
+
+
+<!--Huiculescu, A. (2017). ASP.NET MVC background image. [online] Stack Overflow. Available at: https://stackoverflow.com/questions/44438698/asp-net-mvc-background-image. [Accessed 7 September 2025]-->
