@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PROG_3B_ST10255309.Models
 {
-    public class Events
+    public class Event
     {
         public int Id { get; set; }
 
@@ -11,6 +11,7 @@ namespace PROG_3B_ST10255309.Models
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         [Required]
