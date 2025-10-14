@@ -20,10 +20,10 @@ namespace PROG_3B_ST10255309.Controllers
         //Display all events
         public IActionResult Events(string category, DateTime? startDate, DateTime? endDate)
         {
-            // Get all events or search based on filters
+            // Geting all the events or search based on filters
             var events = _eventServices.SearchEvents(category, startDate, endDate);
 
-            // Pass categories to view for dropdown
+            // Passing data to the view
             ViewBag.Categories = _eventServices.GetAllPredefinedCategories();
             ViewBag.SelectedCategory = category;
             ViewBag.StartDate = startDate;
