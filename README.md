@@ -1,5 +1,6 @@
 Part 1 Youtube link: https://youtu.be/ze7xmu4nxFs 
-Part 2 Youtube link
+
+Part 2 Youtube link: 
 
 The following project is developed using ASP.NET Core MVC (C#) with the purpose of creating a Municipal software system whre users can: Report issues, View upcoming events and View their status updates. At the moment the Report Issues, Local Events and Feedback page are the only pages containing information.
 
