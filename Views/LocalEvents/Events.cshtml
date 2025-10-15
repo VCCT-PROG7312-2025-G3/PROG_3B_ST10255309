@@ -52,6 +52,7 @@
 <div class="search-box">
     <form asp-action="SearchEvents" method="get">
         <div class="row">
+            <h4>Search for specific events</h4>
             <div class="col-md-4">
                 <label for="category" class="form-label">Category</label>
                 <select name="category" id="category" class="form-select">
@@ -89,6 +90,7 @@
 <div class="filter-box">
     <form asp-action="SearchEvents" method="get">
         <div class="row">
+            <h4>Filter all events</h4>
             <div class="col-md-3">
                 <select name="sortBy" id="sortBy" class="form-select">
                     <option value="date_asc" selected="@(ViewBag.SortBy == "date_asc")">Date: Earliest to Latest</option>
