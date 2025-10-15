@@ -35,11 +35,22 @@
             height: auto;
         }
     </style>
+
+    <img src="~/uploads/LOGO.png" alt="Muni Logo" class="logo" />
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 120px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
 </div>
 
-<!--Search Events-->
+<!--Search for events-->
 <div class="search-box">
-    <form asp-action="Events" method="get">
+    <form asp-action="SearchEvents" method="get">
         <div class="row">
             <div class="col-md-4">
                 <label for="category" class="form-label">Category</label>
@@ -74,9 +85,9 @@
 
 <div style="height: 10px"></div>
 
-<!--Filter Events-->
+<!--Filter all events-->
 <div class="filter-box">
-    <form asp-action="Events" method="get">
+    <form asp-action="SearchEvents" method="get">
         <div class="row">
             <div class="col-md-3">
                 <select name="sortBy" id="sortBy" class="form-select">
@@ -101,7 +112,54 @@
 
 <div style="height: 10px"></div>
 
-<!-- Events List -->
+<!--Recommending events-->
+<div class="container">
+    @if (ViewBag.Recommendations != null && ((List<PROG_3B_ST10255309.Models.Event>)ViewBag.Recommendations).Count > 0)
+    {
+        <div class="recommendation-section">
+            <h4 class="mb-3">
+                <i class="fas fa-star text-warning"></i> Recommended For You
+                <small class="text-muted">
+                    @if (ViewBag.HasSearchHistory == true)
+                    {
+                        <span>(Based on your search history)</span>
+                    }
+                    else
+                    {
+                        <span>(Upcoming events)</span>
+                    }
+                </small>
+            </h4>
+
+            @foreach (var recommendedEvent in (List<PROG_3B_ST10255309.Models.Event>)ViewBag.Recommendations)
+            {
+                <div class="card event-card recommendation-card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 class="card-title"> @recommendedEvent.Name</h5>
+                                <p class="text-muted mb-2">
+                                    <strong>Date:</strong> @recommendedEvent.Date.ToString("dddd, MMMM dd, yyyy") <br />
+                                    <strong>Location:</strong> @recommendedEvent.Location <br />
+                                    <strong>Category:</strong> <span class="badge bg-warning text-dark">@recommendedEvent.Category</span>
+                                </p>
+                                <p class="card-text">@recommendedEvent.Description</p>
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <span class="badge bg-success">@recommendedEvent.Status</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<div style="height: 10px"></div>
+
+<!-- Listing all of the events -->
+<div class="container">
 <h4 class="mb-3">Showing @Model.Count Events</h4>
 
 @if (Model.Count == 0)
@@ -135,6 +193,8 @@ else
         </div>
     }
 }
-
+</div>
 
 <!--Huiculescu, A. (2017). ASP.NET MVC background image. [online] Stack Overflow. Available at: https://stackoverflow.com/questions/44438698/asp-net-mvc-background-image. [Accessed 7 September 2025]-->
+<!--Canva (2019). How to Create a Logo with Canva - Canva. [online] About Canva. Available at: https://www.canva.com/create/logos/ [Accessed 15 Oct. 2025].-->
+<!--tdykstra (2024). Views in ASP.NET Core MVC. [online] Microsoft.com. Available at: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-9.0 [Accessed 14 Oct. 2025].-->

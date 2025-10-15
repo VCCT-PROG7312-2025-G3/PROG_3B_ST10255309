@@ -1,6 +1,4 @@
 ﻿using PROG_3B_ST10255309.Models;
-using System;
-using System.Collections.Generic;
 
 namespace PROG_3B_ST10255309.Services
 {
@@ -132,7 +130,7 @@ namespace PROG_3B_ST10255309.Services
             {
                 events = events.Where(e => e.Date.Date >= startDate.Value.Date).ToList();
             }
-
+            
             if (endDate.HasValue)
             {
                 events = events.Where(e => e.Date.Date <= endDate.Value.Date).ToList();

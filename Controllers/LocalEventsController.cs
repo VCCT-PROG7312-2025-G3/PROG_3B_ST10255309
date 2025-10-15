@@ -1,42 +1,79 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PROG_3B_ST10255309.Models;
 using PROG_3B_ST10255309.Services;
-using System;
-using System.Linq;
 
 namespace PROG_3B_ST10255309.Controllers
 {
     public class LocalEventsController : Controller
     {
         private readonly EventServices _eventServices;
+        private readonly RecommendationService _recomendationService = new RecommendationService();
 
         public LocalEventsController()
         {
             _eventServices = new EventServices();
+            _recomendationService = new RecommendationService();
 
             DummyData();
         }
 
-        //Display all events
-        public IActionResult Events(string category, DateTime? startDate, DateTime? endDate, string sortBy)
+        // Display events
+        [HttpGet]
+        public IActionResult Events()
         {
-            // Geting all the events or search based on filters
-            var events = _eventServices.SearchEvents(category, startDate, endDate);
+            // Retrieving all events
+            var events = _eventServices.GetAllEvents();
 
+            // Retreiving recommended events based on user searches
+            var recommended = _recomendationService.GetRecommended(_eventServices);
+
+            ViewBag.Categories = _eventServices.GetAllPredefinedCategories();
+            ViewBag.Recommendations = recommended;
+            ViewBag.TotalEvents = _eventServices.GetTotalEvents();
+            ViewBag.History = _recomendationService.History();
+
+            return View(events);
+        }
+
+        // Search for events
+        [HttpGet]
+        public IActionResult SearchEvents(string category, DateTime? startDate, DateTime? endDate, string sortBy)
+        {
+            // Recording the user searches
+            _recomendationService.RecordSearch(category, startDate);
+            // Getting events based off user searches
+            var events = _eventServices.SearchEvents(category, startDate, endDate);
+            // Sorting events on the users selection
             if(!string.IsNullOrEmpty(sortBy))
             {
                 events = _eventServices.SortEvents(sortBy, events);
             }
 
-            // Passing data to the view
             ViewBag.Categories = _eventServices.GetAllPredefinedCategories();
             ViewBag.SelectedCategory = category;
             ViewBag.StartDate = startDate;
             ViewBag.EndDate = endDate;
             ViewBag.SortBy = sortBy;
+            ViewBag.TotalEvents = _eventServices.GetTotalEvents();
 
-            return View(events);
+            return View("Events", events);
         }
+
+        // Display recommended events
+        [HttpGet]
+        public IActionResult RecommendedEvents()
+        {
+            // Fetching event recommendations of user searches
+            var recommendedEvents = _recomendationService.GetRecommended( _eventServices);
+
+            ViewBag.Categories = _eventServices.GetAllPredefinedCategories();
+            ViewBag.Recommendations = recommendedEvents;
+            ViewBag.TotalEvents = _eventServices.GetTotalEvents();
+            ViewBag.History = _recomendationService.History();
+
+            return View("Events", recommendedEvents);
+        }
+
 
         // Clear all search and filter options
         public IActionResult ClearAll()
@@ -208,3 +245,4 @@ namespace PROG_3B_ST10255309.Controllers
         }
     }
 }
+//tdykstra (2024). Views in ASP.NET Core MVC. [online] Microsoft.com. Available at: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-9.0 [Accessed 14 Oct. 2025].
