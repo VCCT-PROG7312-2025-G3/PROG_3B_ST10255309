@@ -37,7 +37,7 @@
     </style>
 </div>
 
-<!--Search Features-->
+<!--Search Events-->
 <div class="search-box">
     <form asp-action="Events" method="get">
         <div class="row">
@@ -55,21 +55,51 @@
             <div class="col-md-3">
                 <label for="startDate" class="form-label">Start Date</label>
                 <input type="date" name="startDate" id="startDate" class="form-control"
-                       value="@(ViewBag.StartDate?.ToString("yyyy-MM-dd"))" />
+                       value="@(ViewBag.StartDate?.ToString("yyyy/MM/dd"))" />
             </div>
 
             <div class="col-md-3">
                 <label for="endDate" class="form-label">End Date</label>
                 <input type="date" name="endDate" id="endDate" class="form-control"
-                       value="@(ViewBag.EndDate?.ToString("yyyy-MM-dd"))" />
+                       value="@(ViewBag.EndDate?.ToString("yyyy/MM/dd"))" />
             </div>
 
             <div class="col-md-2 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary w-100">Search</button>
+                <a asp-action="ClearAll" class="btn btn-danger w-100">Clear</a>
             </div>
         </div>
     </form>
 </div>
+
+<div style="height: 10px"></div>
+
+<!--Filter Events-->
+<div class="filter-box">
+    <form asp-action="Events" method="get">
+        <div class="row">
+            <div class="col-md-3">
+                <select name="sortBy" id="sortBy" class="form-select">
+                    <option value="date_asc" selected="@(ViewBag.SortBy == "date_asc")">Date: Earliest to Latest</option>
+                    <option value="date_desc" selected="@(ViewBag.SortBy == "date_desc")">Date: Latest to Earliest</option>
+                    <option value="name_asc" selected="@(ViewBag.SortBy == "name_asc")">Name: A to Z</option>
+                    <option value="name_desc" selected="@(ViewBag.SortBy == "name_desc")">Name: Z to A</option>
+                    <option value="category_asc" selected="@(ViewBag.SortBy == "category_asc")">Category: A to Z</option>
+                    <option value="category_desc" selected="@(ViewBag.SortBy == "category_desc")">Category: Z to A</option>
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <a asp-action="ClearAll" class="btn btn-danger w-100">Clear</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div style="height: 10px"></div>
 
 <!-- Events List -->
 <h4 class="mb-3">Showing @Model.Count Events</h4>

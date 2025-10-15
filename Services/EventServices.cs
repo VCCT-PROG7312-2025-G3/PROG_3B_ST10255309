@@ -1,4 +1,6 @@
 ﻿using PROG_3B_ST10255309.Models;
+using System;
+using System.Collections.Generic;
 
 namespace PROG_3B_ST10255309.Services
 {
@@ -137,6 +139,22 @@ namespace PROG_3B_ST10255309.Services
             }
 
             return events;
+        }
+
+        //Sorting events
+        public List<Event> SortEvents(string sortBy, List<Event> events)
+        {
+            // Allowing the user to sort the events with the default being by date ascending
+            return sortBy switch
+            {
+                "date_asc" => events.OrderBy(e => e.Date).ToList(),
+                "date_desc" => events.OrderByDescending(e => e.Date).ToList(),
+                "name_asc" => events.OrderBy(e => e.Name).ToList(),
+                "name_desc" => events.OrderByDescending(e => e.Name).ToList(),
+                "category_asc" => events.OrderBy(e => e.Category).ToList(),
+                "category_desc" => events.OrderByDescending(e => e.Category).ToList(),
+                _ => events.OrderBy(e => e.Date).ToList(),
+            };
         }
 
         //Get all unique categories

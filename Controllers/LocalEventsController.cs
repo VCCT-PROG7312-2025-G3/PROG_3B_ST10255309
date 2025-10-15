@@ -18,18 +18,30 @@ namespace PROG_3B_ST10255309.Controllers
         }
 
         //Display all events
-        public IActionResult Events(string category, DateTime? startDate, DateTime? endDate)
+        public IActionResult Events(string category, DateTime? startDate, DateTime? endDate, string sortBy)
         {
             // Geting all the events or search based on filters
             var events = _eventServices.SearchEvents(category, startDate, endDate);
+
+            if(!string.IsNullOrEmpty(sortBy))
+            {
+                events = _eventServices.SortEvents(sortBy, events);
+            }
 
             // Passing data to the view
             ViewBag.Categories = _eventServices.GetAllPredefinedCategories();
             ViewBag.SelectedCategory = category;
             ViewBag.StartDate = startDate;
             ViewBag.EndDate = endDate;
+            ViewBag.SortBy = sortBy;
 
             return View(events);
+        }
+
+        // Clear all search and filter options
+        public IActionResult ClearAll()
+        {
+            return RedirectToAction("Events");
         }
 
 
