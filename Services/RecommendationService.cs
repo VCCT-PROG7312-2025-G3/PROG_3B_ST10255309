@@ -16,7 +16,7 @@ namespace PROG_3B_ST10255309.Services
         {
             if (!string.IsNullOrWhiteSpace(category) && category != "All")
             {
-                // Tracking user searches by category
+                // Tracking what category the user searches for
                 if(categoryCount.ContainsKey(category))
                 {
                     categoryCount[category]++;
@@ -26,7 +26,7 @@ namespace PROG_3B_ST10255309.Services
                     categoryCount[category] = 1;
                 }
             }
-            // Tracking user searches by month
+            // Tracking the date the user searches for
             if(dateSearch.HasValue)
             {
                 string month = dateSearch.Value.ToString("MMMMM yyyy");
@@ -42,7 +42,7 @@ namespace PROG_3B_ST10255309.Services
             
         }
 
-        // Method to get top the most searched category
+        // Method to get the most searched category
         public string GetTopSearchedCategory()
         {
             if (categoryCount.Count == 0)

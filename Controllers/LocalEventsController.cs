@@ -63,7 +63,7 @@ namespace PROG_3B_ST10255309.Controllers
         [HttpGet]
         public IActionResult RecommendedEvents()
         {
-            // Fetching event recommendations of user searches
+            // Fetching event recommendations from the user searches
             var recommendedEvents = _recomendationService.GetRecommended( _eventServices);
 
             ViewBag.Categories = _eventServices.GetAllPredefinedCategories();

@@ -4,6 +4,7 @@ namespace PROG_3B_ST10255309.Models
 {
     public class ReportStorage
     {
+        // Making use of a linkedlist to store users issues
         public static LinkedList<Report> Reports = new LinkedList<Report>();
         public static void AddReport(Report report)
         {

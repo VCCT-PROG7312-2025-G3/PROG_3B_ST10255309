@@ -23,6 +23,7 @@ namespace PROG_3B_ST10255309.Models
         [Required]
         public string Category { get; set; }
 
+        // Sets the creation date to the current date
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public string Status { get; set; } = "Upcoming";

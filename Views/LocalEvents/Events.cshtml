@@ -56,6 +56,7 @@
             <div class="col-md-4">
                 <label for="category" class="form-label">Category</label>
                 <select name="category" id="category" class="form-select">
+                    <!--Selecting a category in the view-->
                     <option value="">All Categories</option>
                     @foreach (var cat in ViewBag.Categories)
                     {
@@ -63,13 +64,13 @@
                     }
                 </select>
             </div>
-
+            <!--Selecting a starting date for the date range-->
             <div class="col-md-3">
                 <label for="startDate" class="form-label">Start Date</label>
                 <input type="date" name="startDate" id="startDate" class="form-control"
                        value="@(ViewBag.StartDate?.ToString("yyyy/MM/dd"))" />
             </div>
-
+            <!--Selecting a ending date for the date range-->
             <div class="col-md-3">
                 <label for="endDate" class="form-label">End Date</label>
                 <input type="date" name="endDate" id="endDate" class="form-control"
@@ -132,7 +133,7 @@
                     }
                 </small>
             </h4>
-
+            <!--Displaying the recommended events-->
             @foreach (var recommendedEvent in (List<PROG_3B_ST10255309.Models.Event>)ViewBag.Recommendations)
             {
                 <div class="card event-card recommendation-card mb-3">
@@ -173,6 +174,7 @@
 }
 else
 {
+    <!--Displaying all of the events-->
     @foreach (var eventItem in Model)
     {
         <div class="card event-card">
