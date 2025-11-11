@@ -30,7 +30,7 @@ namespace PROG_3B_ST10255309.Services
             request.Insert(report);
         }
 
-        // Searching for a report by ID
+        // Getting the report by Id
         public Report GetReportId(int id)
         {
             return request.Search(id);
@@ -71,6 +71,12 @@ namespace PROG_3B_ST10255309.Services
             return service.GetNextStatus(current);
         }
 
+        // Getting the percentage of completion
+        public int GetProgressPercentage(string status)
+        {
+            return service.GetPercentage(status);
+        }
+
         // Getting all of the statuses
         public List<string> GetAllStatuses()
         {
@@ -83,12 +89,6 @@ namespace PROG_3B_ST10255309.Services
             return request.Count();
         }
 
-        // Get reports by category
-        public List<Report> SearchByCategory(string category)
-        {
-            return request.GetOrdered().Where(r => r.Category.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
-        }
-
         // Getting the statistics of each status
         public Dictionary<string, int> GetStatusStatistics()
         {
@@ -99,5 +99,14 @@ namespace PROG_3B_ST10255309.Services
             }
             return stats;
         }
+
+        // Fetching the issue reports
+        public LinkedList<Report> GetLinkedListReports()
+        {
+            return reports;
+        }
     }
 }
+// BetterCoder (2012b). C# LinkedList Tutorial - 3 - Beginning the LinkedList Class. [online] YouTube. Available at: https://www.youtube.com/watch?v=DTZlz8KsSSQ&list=PL3iOx6lykrwrlVijTcZI3l8Hz_9W3Pb9F&index=3 [Accessed 9 Sep. 2025].
+// BetterCoder (2012c). C# LinkedList Tutorial - 4 - The Add methods. [online] YouTube. Available at: https://www.youtube.com/watch?v=9pw8dc2Tmpg&list=PL3iOx6lykrwrlVijTcZI3l8Hz_9W3Pb9F&index=4 [Accessed 9 Sep. 2025].
+// Dictionary Class (System.Collections.Generic) (2024). [online] Microsoft.com. Available at: https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=net-9.0 [Accessed 13 Oct. 2025].

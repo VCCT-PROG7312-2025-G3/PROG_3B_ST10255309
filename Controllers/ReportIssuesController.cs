@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PROG_3B_ST10255309.Models;
+using PROG_3B_ST10255309.Services;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace PROG_3B_ST10255309.Controllers
 {
     public class ReportIssuesController : Controller
     {
+        private static ServiceRequest _servicereq = new ServiceRequest();
 
         [HttpGet]
         public IActionResult Reports()
@@ -40,7 +42,8 @@ namespace PROG_3B_ST10255309.Controllers
                 }
             }
 
-            ReportStorage.AddReport(report);
+            // Adding the completed report
+            _servicereq.AddRequest(report);
 
             TempData["SuccessModel"] = true;
             return RedirectToAction("Reports");
