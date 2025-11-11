@@ -24,9 +24,9 @@ First off you have to clone the git repository (https://github.com/Spookies658/P
 - To navigate from page to page, make use of the sidebar on the left hand side and click on any of the contents in the sidebar to visit that page.
 - Once the application has been opened, it displays the home page that shows an overview of the services offered.
 - The sidebar is split into 3 parts:
-        - Home: This is where the home page is located.
-        - Municipal Services: This heading contains the following pages: Report Issue; Local Events; Service Request Status.
-        - Support: THis heading contains the following page: Provide your feedback.
+  - Home: This is where the home page is located.
+  - Municipal Services: This heading contains the following pages: Report Issue; Local Events; Service Request Status.
+  - Support: THis heading contains the following page: Provide your feedback.
 
 **Reporting Issues**
 - The Report Issue page prompts you to fill in the following: Location; Category; Description; Upload an image. Once all these fields have been filled in and you click submit, a success model will pop up. It will confirm your report and it will ask you if you would like to leave feedback. If Yes is clicked, the program will take you to the feedback page where as pressing no will leave you in the Report Issue page.
