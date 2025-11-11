@@ -59,11 +59,3 @@ First off you have to clone the git repository (https://github.com/Spookies658/P
 
 **Closing the running software**
 - To exit the running software, simply click the "X" in the top right hand corner.
-
-  **Data Structures Used**
-  - ReportService.cs: LinkedList<>
-  - EventServices.cs: Dictionary<int, List</Event>>, Dictionary<DateTime, List<Event>>, SortedDictionary<DateTime, List<Event>>, Queue<Event>, HashSet<string>, HashSet<DateTime>
-  - RecommendationService.cs: Dictionary<string, int>, Dictionary<string, int>
-  - ServiceRequest.cs: LinkedList<>, List<>
-  - Node.cs: List<>
-  - ServiceStatus.cs: Dictionary <string, List<>>, List<>
