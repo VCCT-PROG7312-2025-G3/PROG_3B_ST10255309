@@ -16,6 +16,34 @@
         font-family: Arial, sans-serif;
     }
 
+    .search-box{
+        background-color: white;
+        padding: 20px;
+        border-radius:8px;
+        margin-bottom: 30px;
+    }
+
+    .filter-box{
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .reccomendation-section{
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .event-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 3px;
+        margin-bottom: 20px;
+    }
+
     .custom-button {
         width: 200px;
         height: 50px;
@@ -177,7 +205,7 @@ else
     <!--Displaying all of the events-->
     @foreach (var eventItem in Model)
     {
-        <div class="card event-card">
+        <div class="event-card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-9">

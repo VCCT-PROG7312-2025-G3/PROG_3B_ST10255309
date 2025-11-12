@@ -1,0 +1,254 @@
+﻿@model List<PROG_3B_ST10255309.Models.Report>
+
+@{
+    ViewData["Title"] = "Service Request Status";
+}
+
+<style>
+    body {
+        background-image: url('https://e1.pxfuel.com/desktop-wallpaper/8/898/desktop-wallpaper-light-colour-plain-backgrounds-light-grey-plain.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+
+    .status-badge-submitted {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+    .status-badge-inprogress {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+
+    .status-badge-completed {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .search-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+    .stats-card {
+        background-color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .request-card {
+        margin-bottom: 20px;
+        border-left: 4px solid #007bff;
+        background-color: white;
+    }
+
+    .status-progress {
+        margin-top: 15px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg" alt="SA Flag" class="flag" />
+    <style>
+        .flag {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+
+    <img src="~/uploads/LOGO.png" alt="Muni Logo" class="logo" />
+    <style>
+        .logo {
+            position: absolute;
+            top: 30px;
+            right: 130px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</div>
+
+<div class="container mt-4">
+    <h1 class="display-4 text-center mb-4">Service Request Status</h1>
+    <p class="lead text-center">Track your submitted reports and their progress</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (ViewBag.SearchMessage != null)
+    {
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> @ViewBag.SearchMessage
+        </div>
+    }
+
+    <!--Showing the amount of reports-->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <h3 class="text-primary">@ViewBag.TotalRequests</h3>
+                <p class="mb-0">Total Requests</p>
+            </div>
+        </div>
+        @foreach (var stat in (Dictionary<string, int>)ViewBag.StatusStats)
+        {
+            <div class="col-md-3">
+                <div class="stats-card text-center">
+                    <h3 class="text-secondary">@stat.Value</h3>
+                    <p class="mb-0">@stat.Key</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!--Filter the reports-->
+    <div class="search-box">
+        <form asp-action="FilterStatus" method="get">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="form-label">
+                        <i class="fas fa-filter"></i> Filter by Status
+                    </label>
+                    <select name="statusFilter" class="form-select">
+                        <option value="">All Statuses</option>
+                        @foreach (var status in ViewBag.Statuses)
+                        {
+                            <option value="@status" selected="@(ViewBag.SelectedStatus == status)">@status</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-search"></i> Filter
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--Requests List with their Status-->
+    <h4 class="mb-3">Showing @Model.Count Request(s)</h4>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-warning text-center">
+            <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+            <h4>No Requests Found</h4>
+        </div>
+    }
+    else
+    {
+        @foreach (var request in Model)
+        {
+            var statusClass = request.Status switch
+            {
+                "Submitted" => "status-badge-submitted",
+                "In Progress" => "status-badge-inprogress",
+                "Completed" => "status-badge-completed",
+                _ => "bg-secondary"
+            };
+
+
+            var progressPercentage = request.Status switch
+            {
+                "Submitted" => 10,
+                "In Progress" => 50,
+                "Completed" => 100,
+                _ => 0
+            };
+
+            <div class="card request-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="card-title">
+                                <i class="fas fa-file-alt"></i> Request: @request.Id - @request.Category
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <p class="text-muted mb-1">
+                                <strong><i class="fas fa-map-marker-alt"></i> Location:</strong> @request.Location
+                            </p>
+                            <p class="text-muted mb-1">
+                                <strong><i class="fas fa-calendar-day"></i> Date Submitted:</strong> @request.DateSubmitted.ToString("MMM dd, yyyy 'at' h:mm tt")
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted mb-1">
+                                <strong><i class="fas fa-info-circle"></i> Status:</strong>
+                                <span class="badge @statusClass">@request.Status</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <p class="card-text mb-0">
+                                <strong>Description:</strong> @request.Description
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="status-progress">
+                        <h6 class="mb-2"><i class="fas fa-chart-line"></i>Progress Status</h6>
+
+                        <div class="progress mb-3" style="height: 25px;">
+                            <div class="progress-bar @(request.Status == "Completed" ? "bg-success" : "bg-info")"
+                                 role="progressbar"
+                                 style="width: @progressPercentage%;"
+                                 aria-valuenow="@progressPercentage"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                                @progressPercentage%
+                            </div>
+                        </div>
+
+                        <!--Progression of request status-->
+                        <div class="d-flex justify-content-between">
+                            <span class="badge @(request.Status == "Submitted" ? "bg-warning" : "bg-secondary")">
+                                @(request.Status == "Submitted" || request.Status == "In Progress" || request.Status == "Completed" ? "Submitted " : "Submitted")
+                            </span>
+                            <span class="badge @(request.Status == "In Progress" ? "bg-info" : request.Status == "Completed" ? "bg-secondary" : "bg-light text-dark")">
+                                @(request.Status == "In Progress" || request.Status == "Completed" ? "In Progress " : "In Progress")
+                            </span>
+                            <span class="badge @(request.Status == "Completed" ? "bg-success" : "bg-light text-dark")">
+                                @(request.Status == "Completed" ? "Completed " : "Completed")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
+<!--W3Schools (2019). HTML CSS. [online] W3schools.com. Available at: https://www.w3schools.com/html/html_css.asp. [Accessed 9 September 2025]-->
+<!--Canva (2019). How to Create a Logo with Canva - Canva. [online] About Canva. Available at: https://www.canva.com/create/logos/ [Accessed 15 Oct. 2025].-->
+<!--Huiculescu, A. (2017). ASP.NET MVC background image. [online] Stack Overflow. Available at: https://stackoverflow.com/questions/44438698/asp-net-mvc-background-image. [Accessed 7 September 2025]-->

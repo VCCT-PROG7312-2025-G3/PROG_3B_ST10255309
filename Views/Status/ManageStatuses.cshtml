@@ -1,0 +1,212 @@
+﻿@model List<PROG_3B_ST10255309.Models.Report>
+
+@{
+    ViewData["Title"] = "Manage Request Statuses";
+}
+
+<style>
+    body {
+        background-image: url('https://e1.pxfuel.com/desktop-wallpaper/8/898/desktop-wallpaper-light-colour-plain-backgrounds-light-grey-plain.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .logo {
+        position: absolute;
+        top: 50px;
+        right: 10px;
+        width: 100px;
+        height: auto;
+        z-index: 1000;
+    }
+
+    .stats-card {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .request-card {
+        background-color: #ffffff;
+        margin-bottom: 20px;
+        border-left: 4px solid #007bff;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-select, .btn {
+        margin-right: 10px;
+    }
+
+    .card-title {
+        color: #333;
+    }
+
+    .card-body p {
+        color: #555;
+    }
+
+    .alert {
+        border-radius: 6px;
+    }
+
+    .btn-warning {
+        color: #212529;
+    }
+</style>
+
+<div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg" alt="SA Flag" class="flag" />
+    <style>
+        .flag {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+
+    <img src="~/uploads/LOGO.png" alt="Muni Logo" class="logo" />
+    <style>
+        .logo {
+            position: absolute;
+            top: 30px;
+            right: 130px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</div>
+
+<img src="~/uploads/LOGO.png" alt="Muni Logo" class="logo" />
+
+<div class="container mt-4">
+        <h1 class="display-5 text-center mb-4">Manage Request Status</h1>
+        <p class="lead text-center">Update the progress of service requests</p>
+    
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!--Listing the different progression levels-->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <h3 class="text-warning">@ViewBag.StatusStats["Submitted"]</h3>
+                <p class="mb-0 text-muted">Submitted</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <h3 class="text-info">@ViewBag.StatusStats["In Progress"]</h3>
+                <p class="mb-0 text-muted">In Progress</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <h3 class="text-success">@ViewBag.StatusStats["Completed"]</h3>
+                <p class="mb-0 text-muted">Completed</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card text-center">
+                <h3 class="text-primary">@Model.Count</h3>
+                <p class="mb-0 text-muted">Total Requests</p>
+            </div>
+        </div>
+    </div>
+
+    <!--Listing the issue requests-->
+    <h4 class="mb-3 text-dark">All Service Requests (@Model.Count)</h4>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-warning text-center">
+            <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+            <h4>No Requests Found</h4>
+            <p>There are currently no service requests in the system.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var request in Model)
+        {
+            var statusClass = request.Status switch
+            {
+                "Submitted" => "bg-warning text-dark",
+                "In Progress" => "bg-info text-white",
+                "Completed" => "bg-success text-white",
+                _ => "bg-secondary text-white"
+            };
+
+            <div class="card request-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="card-title">
+                                <i class="fas fa-file-alt"></i> Request #@request.Id - @request.Category
+                            </h5>
+                            <p class="mb-2">
+                                <strong>Location:</strong> @request.Location <br />
+                                <strong>Date:</strong> @request.DateSubmitted.ToString("MMM dd, yyyy 'at' h:mm tt") <br />
+                                <strong>Current Status:</strong>
+                                <span class="badge @statusClass">@request.Status</span>
+                            </p>
+                            <p class="mb-0">
+                                <strong>Description:</strong> @request.Description
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <form asp-action="UpdateStatus" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@request.Id" />
+
+                                <label class="form-label">Update Status:</label>
+                                <select name="newStatus" class="form-select mb-2">
+                                    @foreach (var status in ViewBag.Statuses)
+                                    {
+                                        <option value="@status" selected="@(status == request.Status)">
+                                            @status
+                                        </option>
+                                    }
+                                </select>
+
+                                <button type="submit" class="btn btn-warning w-100">
+                                    <i class="fas fa-sync"></i> Update Status
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    <!--Return back to RequestStatus.cshtml-->
+    <div class="text-center mt-4">
+        <a asp-action="RequestStatus" class="btn btn-danger btn-lg">
+            <i class="fas fa-arrow-left"></i> Return
+        </a>
+    </div>
+</div>
