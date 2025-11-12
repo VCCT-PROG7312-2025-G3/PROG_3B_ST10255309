@@ -2,7 +2,7 @@ Part 1 Youtube link: https://youtu.be/ze7xmu4nxFs
 
 Part 2 Youtube link: https://youtu.be/EA1QAQzXjFw 
 
-Part 3 YOutube link: 
+Part 3 Youtube link: https://youtu.be/0JvBemTstvI
 
 **Municipal Services Application**
 
@@ -59,3 +59,8 @@ First off you have to clone the git repository (https://github.com/Spookies658/P
 
 **Closing the running software**
 - To exit the running software, simply click the "X" in the top right hand corner.
+
+**Data Structures**
+  - ReportService.cs: LinkedList<>
+  - EventServices.cs: Dictionary<int, List</Event>>, Dictionary<DateTime, List<Event>>, SortedDictionary<DateTime, List<Event>>, Queue<Event>, HashSet<string>, HashSet<DateTime>
+  - RecommendationService.cs: Dictionary<string, int>, Dictionary<string, int>
