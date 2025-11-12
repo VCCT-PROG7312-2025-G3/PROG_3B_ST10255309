@@ -4,11 +4,11 @@ namespace PROG_3B_ST10255309.Services
 {
     public class ReportService
     {
-        // Linked list for storing reports
+        //Linked list for storing reports
         private static LinkedList<Report> _reports = new LinkedList<Report>();
         private static int _nextId = 1;
 
-        // Adding a new report to the Linked List
+        //Adding a new report to the Linked List
         public void AddingReport(Report report)
         {
             report.Id = _nextId++;
@@ -16,13 +16,13 @@ namespace PROG_3B_ST10255309.Services
             _reports.AddLast(report);
         }
 
-        // Fetching all the reports from the Linked List
+        //Fetching all the reports from the Linked List
         public LinkedList<Report> GetAllReports()
         {
             return _reports;
         }
 
-        // Fetching report by Id
+        //Fetching report by Id
         public Report GetReportId(int id)
         {
             foreach(var report in _reports)
@@ -35,13 +35,13 @@ namespace PROG_3B_ST10255309.Services
             return null;
         }
 
-        // Get the toal count of reports
+        //Get the toal count of reports
         public int GetReportCount()
         {
             return _reports.Count;
         }
 
-        // Predefined categories
+        //Predefined categories
         public List<string> GetCategories()
         {
             return new List<string>

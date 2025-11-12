@@ -8,13 +8,28 @@ namespace PROG_3B_ST10255309.Controllers
     {
         private static ServiceRequest _servicereq = new ServiceRequest();
 
-        // Displaying all the issue requests 
+        //Displaying all the issue requests 
         [HttpGet]
-        public IActionResult RequestStatus(string statuses)
+        public IActionResult RequestStatus()
+        {
+            var reports = _servicereq.GetAllReports();
+            
+
+            //Passing data to the view
+            ViewBag.Statuses = _servicereq.GetAllStatuses();
+            ViewBag.TotalReports = _servicereq.GetRequestCount();
+            ViewBag.StatusStats = _servicereq.GetStatusStatistics();
+
+            return View(reports);
+        }
+
+        //Filter the issue requests 
+        [HttpGet]
+        public IActionResult FilterStatus(string statuses)
         {
             List<Report> reports;
 
-            // Filter by status
+            //Filter by status
             if (!string.IsNullOrEmpty(statuses))
             {
                 reports = _servicereq.GetRequestsByStatus(statuses);
@@ -24,16 +39,16 @@ namespace PROG_3B_ST10255309.Controllers
                 reports = _servicereq.GetAllReports();
             }
 
-            // Passing data to the view
+            //Passing data to the view
             ViewBag.Statuses = _servicereq.GetAllStatuses();
             ViewBag.SelectedStatus = statuses;
             ViewBag.TotalReports = _servicereq.GetRequestCount();
             ViewBag.StatusStats = _servicereq.GetStatusStatistics();
 
-            return View(reports);
+            return View("RequestStatus", reports);
         }
 
-        // Manage status updates
+        //Manage status updates
         [HttpGet]
         public IActionResult ManageStatuses()
         {
@@ -44,7 +59,7 @@ namespace PROG_3B_ST10255309.Controllers
             return View(reports);
         }
 
-        // Updating the status of a report
+        //Updating the status of a report
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateStatus(int id, string newStatus)

@@ -32,7 +32,7 @@ namespace PROG_3B_ST10255309.Controllers
                 var fileName = Path.GetFileName(report.MediaAttachment.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
 
-                // Ensure the uploads folder exists
+                //Ensure the uploads folder exists
                 if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads")))
                     Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads"));
 
@@ -42,7 +42,7 @@ namespace PROG_3B_ST10255309.Controllers
                 }
             }
 
-            // Adding the completed report
+            //Adding the completed report
             _servicereq.AddRequest(report);
 
             TempData["SuccessModel"] = true;

@@ -5,7 +5,7 @@ namespace PROG_3B_ST10255309.DataStructures
 {
     public class Node
     {
-        // Node for the Binary Search tree for organizing report statuses
+        //Node for the Binary Search tree for organizing report statuses
         public Report Data { get; set; }
         public Node Left { get; set; }
         public Node Right { get; set; }
@@ -18,7 +18,7 @@ namespace PROG_3B_ST10255309.DataStructures
         }
     }
 
-        // Binary Search tree implementation
+        //Binary Search tree implementation
         public class IssueRequest
         {
             private Node root;
@@ -33,7 +33,7 @@ namespace PROG_3B_ST10255309.DataStructures
                 root = InsertRequest(root, report);
             }
 
-            // Inserting service requests into the tree by ID
+            //Inserting service requests into the tree by ID
             private Node InsertRequest(Node node, Report report)
             {
                 if (node == null)
@@ -59,7 +59,7 @@ namespace PROG_3B_ST10255309.DataStructures
                 return SearchReport(root, id);
             }
 
-            // Searching for a Issued report by ID
+            //Searching for a Issued report by ID
             private Report SearchReport(Node node, int id)
             {
                 if (node == null)
@@ -82,7 +82,7 @@ namespace PROG_3B_ST10255309.DataStructures
                 }
             }
 
-            // Retrieving all reports in order
+            //Retrieving all reports in order
             public List<Report> GetOrdered()
             {
                 List<Report> reports = new List<Report>();
@@ -105,7 +105,7 @@ namespace PROG_3B_ST10255309.DataStructures
                 return GetCount(root);
             }
 
-            // Counting the number of reports inside the tree
+            //Counting the number of reports inside the tree
             private int GetCount(Node node)
             {
                 if (node == null)
